@@ -1,5 +1,5 @@
 import { App, Editor, MarkdownView, Modal, Notice, Plugin, PluginSettingTab, Setting, Menu } from 'obsidian';
-
+const keyword_extractor = require("keyword-extractor");
 // TODO: Remember to rename these classes and interfaces!
 
 interface MyPluginSettings {
@@ -21,34 +21,42 @@ export default class MyPlugin extends Plugin {
 			id: "generate-tag-section",
 			name: "Generate Tags",
 			editorCallback: (editor: Editor, view: MarkdownView) => {
+				console.log(
+				keyword_extractor.extract(editor.getValue(), {
+					language: "english",
+					remove_digits: true,
+					return_changed_case: true,
+					remove_duplicates: false
+
+				}))
 				console.log(editor.lastLine());
 				console.log(editor.getValue());
 				editor.setValue(editor.getValue() + "\n\n---\n### Tag List\n\n\n---\n")
 			}
 		});
 
-		// Inserts Tag based on document selection
+		// Inserts Tag based on selection
 		this.addCommand({
 			id: "insert-tag",
 			name: "Insert Tag",
-			hotkeys: [{ modifiers: ["Mod", 'Alt'], key: "t" }],
+			hotkeys: [{ modifiers: ["Mod", "Alt"], key: "t" }],
 			editorCallback: (editor: Editor, view: MarkdownView) => {
 				// Line for tag insert
 				let tagline = 0;
 				for (let i = 0; i < editor.lastLine(); ++i) {
 					if (editor.getLine(i) == "### Tag List") {
-						tagline = i+1;
+						tagline = i + 1;
 						break;
 					}
 				}
 				const currentSelection = editor.getSelection()
-				editor.setLine(tagline, `#${currentSelection.toLowerCase()} `+editor.getLine(tagline))
+				editor.setLine(tagline, `#${currentSelection.toLowerCase()} ` + editor.getLine(tagline))
 
 			}
 		});
-		
 
 
+		// TODO: Create option for suggesting top 5 tags
 
 		// This adds a settings tab so the user can configure various aspects of the plugin
 		this.addSettingTab(new SampleSettingTab(this.app, this));
