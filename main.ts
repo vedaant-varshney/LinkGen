@@ -1,5 +1,4 @@
 import { App, Editor, MarkdownView, Modal, Notice, Plugin, PluginSettingTab, Setting, Menu } from 'obsidian';
-const keyword_extractor = require("keyword-extractor");
 // TODO: Remember to rename these classes and interfaces!
 
 interface MyPluginSettings {
@@ -22,13 +21,6 @@ export default class MyPlugin extends Plugin {
 			name: "Generate Tags",
 			editorCallback: (editor: Editor, view: MarkdownView) => {
 				console.log(
-				keyword_extractor.extract(editor.getValue(), {
-					language: "english",
-					remove_digits: true,
-					return_changed_case: true,
-					remove_duplicates: false
-
-				}))
 				console.log(editor.lastLine());
 				console.log(editor.getValue());
 				editor.setValue(editor.getValue() + "\n\n---\n### Tag List\n\n\n---\n")
