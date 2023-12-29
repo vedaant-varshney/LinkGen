@@ -20,7 +20,6 @@ export default class MyPlugin extends Plugin {
 			id: "generate-tag-section",
 			name: "Generate Tags",
 			editorCallback: (editor: Editor, view: MarkdownView) => {
-				console.log(
 				console.log(editor.lastLine());
 				console.log(editor.getValue());
 				editor.setValue(editor.getValue() + "\n\n---\n### Tag List\n\n\n---\n")
