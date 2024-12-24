@@ -12,6 +12,9 @@ Small plugin with the aim of simplifying tag generation for documents
 `Insert Tag`: Command inserting currently selected text into tag list
 - Shortcut of `Ctrl+Alt+T` as alternative to command 
 
+## Python Proof of Concept
+`llm.py` uses NousResearch/Nous-Hermes-2-Mistral-7B-DPO as a chat LLM to attempt to generate tags from the text. 
+- Results are effective but inconsistent, where tags with supplied prompt are generated, but not always in a processable format
 
 ## Future Plans
 - Generate tags command will have keyword extraction to suggest initial tags for the document 
@@ -19,9 +22,8 @@ Small plugin with the aim of simplifying tag generation for documents
 - Option to regenerate tags
 - Add Settings menu to customize hotkeys for commands
 
+
 ## Installation
-
-
 The following is for local testing:
 1. Ensure Community Plugins setting is enabled
 2. Navigate to `path-to-vault/.obsidian/plugins`
